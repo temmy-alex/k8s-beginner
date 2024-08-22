@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kudemo-todo-postgres-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: postgres
+  template:
+    metadata:
+      labels:
+        component: postgres
+    spec:
+      volumes:
+        - name: postgres-storage
+          persistentVolumeClaim:
+            claimName: db-pgsql-persistent-volume-claim
+      initContainers:
+        - name: create-dir
+          image: busybox
+          command: ["mkdir", "-p", "/mnt/data"]
+          volumeMounts:
+            - name: postgres-storage
+              mountPath: /mnt/data
+      containers:
+        - name: postgres
+          image: temmyvirtuoso/kudemo-todo-postgres:1.0
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: postgres-storage
+              mountPath: /mnt/data
+          env:
+            - name: POSTGRES_PASSWORD
+              value: password-mudah
+            - name: POSTGRES_DB
+              value: kudemodb

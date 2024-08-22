@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kudemo-todo-api-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      component: api
+  template:
+    metadata:
+      labels:
+        component: api
+    spec:
+      containers:
+        - name: api
+          image: temmyvirtuoso/kudemo-todo-api:1.0
+          ports:
+            - containerPort: 3000
+          env:
+            - name: POSTGRES_ENABLED
+              value: "false"
