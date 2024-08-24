@@ -15,7 +15,7 @@ spec:
       volumes:
         - name: postgres-storage
           persistentVolumeClaim:
-            claimName: db-pgsql-persistent-volume-claim
+            claimName: database-pgsql-persistent-volume-claim
       initContainers:
         - name: create-dir
           image: busybox

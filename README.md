@@ -8,5 +8,6 @@ Tools for running in local, choose one
 - [K3s](https://k3s.io/)
  
 
-  
+for domain hello-world.example input in /etc/hosts for testing ingress
+127.0.0.1 hello-world.example
  
